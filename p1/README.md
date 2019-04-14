@@ -8,10 +8,13 @@ At first I assemble the phonetic of whole sentence together and then I try to fi
 I seperate a substring and check wether it is in my dictionary or not and also I have to check recursively wether the remaining parts may make meaning ful words or not...
 
 I have put my codes in p1/src . My main files are `main.py` and `datamapping.py` and I have also a script to run them named `run_script.py` which will be explained later .
+
 In p1/out I have my outout files which contains `phonetics_states.txt` and `final_answer.txt`.
 Actually the final output is in`final_answer.txt`.
-In p1/in I have the `Entries.csv` which is a comma seperated data set and in the tests folder there exists some test cases of input and output.
-In p1/out I have a tests_result folder which contains the result of the determined test cases.
+It also contains `test_results` folder which is my output to those 5 determined test cases.
+
+In p1/in I have the `Entries.csv` which is a comma seperated data set and also some input files for test.
+
 
 # Dependencies
 All you need is python3 :))

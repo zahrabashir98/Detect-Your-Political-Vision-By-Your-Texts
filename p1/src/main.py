@@ -71,7 +71,7 @@ if __name__ == '__main__':
                 i += 1
 
     sentence = ""
-    with open("../in/tests/%s.txt"%sys.argv[1]) as inp:
+    with open("../in/%s.txt"%sys.argv[1]) as inp:
         input_data = inp.readlines()
         # notice you should't have any extra line in your input
         for line in input_data:
