@@ -30,8 +30,15 @@ def dataMapping():
         counter += 1
 
     for value in answers:
-        print(answers[value])
-        f.write(str(answers[value]))
+        s = ""
+        for i in range(len(answers[value])):
+            if i != len(answers[value]) -1 :
+                s += "%s-"%answers[value][i]
+            else:
+                s += "%s"%answers[value][i]
+            
+        print(s)
+        f.write(s)
         f.write("\n")
     print ()
     print("you can see the result in ../out/final_answer.txt ")
