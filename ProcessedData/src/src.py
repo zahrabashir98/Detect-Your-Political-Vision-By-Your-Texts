@@ -1,8 +1,14 @@
 import nltk
 nltk.download('punkt')
+nltk.download('wordnet')
+  
 import re
 import inflect
 import glob
+from num2fawords import words as WORDS
+from nltk.stem.lancaster import LancasterStemmer
+from nltk.stem.wordnet import WordNetLemmatizer
+import unicodedata
 
 def stopWordsList():
     with open("stopwords.txt") as f:
@@ -16,34 +22,29 @@ def tokenize(string):
 
 
 def remove_non_ascii(words):
-    # new_words = []
-    # for word in words:
-    #     new_word = unicodedata.normalize('NFKD', word).encode('ascii', 'ignore').decode('utf-8', 'ignore')
-    #     new_words.append(new_word)
-    # return new_words
-    pass
+    new_words = []
+    for word in words:
+        new_word = unicodedata.normalize('NFKD', word).encode('ascii', 'ignore').decode('utf-8', 'ignore')
+        new_words.append(new_word)
+    return new_words
+    
 
-# punc = ['.','؟',':','؛','،','»']
-# def extract(string):
-#     for pun in punc:
-#         string = string.replace(pun, ' ')
-#     # print(string)
-#     return string
-
+punc = ['.','؟',':','؛','،','»']
 def remove_punctuation(words):
     new_words = []
     for word in words:
-        new_word = re.sub(r'[^\w\s]', '', word)
-        if new_word != '':
-            new_words.append(new_word)
+        if word not in punc:
+            new_words.append(word)
     return new_words
 
+
 def replace_numbers(words):
+    # using num2fawords module
     p = inflect.engine()
     new_words = []
     for word in words:
         if word.isdigit():
-            new_word = p.number_to_words(word)
+            new_word = WORDS(word)
             new_words.append(new_word)
         else:
             new_words.append(word)
@@ -74,9 +75,12 @@ def lemmatize_verbs(words):
     return lemmas
 
 def normalize(words):
-    # words = remove_non_ascii(words)
+    words = remove_non_ascii(words)
     words = remove_punctuation(words)
     words = replace_numbers(words)
+    ########################################################################################################
+    #  I read somewhere that stopwords are in Normalizing but according to the HW I apply it in WordCloud  #
+    ########################################################################################################
     # words = remove_stopwords(words)
     return words
 
@@ -90,12 +94,14 @@ if __name__ == '__main__':
     ImamList = []
     ShahList = []
 
-    # tokenize and normalize label1
+    # tokenize and normalize label1 +stem +lemmatizing
     for name in list_of_dir_1:
         d = open("%s"%name, "r", encoding="utf-8") 
         word_data = d.read()
         tokenized_words = tokenize(word_data)
         words = normalize(tokenized_words)
+        stem1 = stem_words(words)
+        lem1 = lemmatize_verbs(words)
         ImamList.append(words)
         counter1 += 1
 
@@ -105,10 +111,15 @@ if __name__ == '__main__':
                 filehandle.write('%s ' % item)
     filehandle.close()
 
+    with open("../ImamKhomeini/stem1.txt", "w") as f1:
+        f1.write(str(stem1))
+        f1.close()
+    with open("../ImamKhomeini/lem1.txt", "w") as f1:
+        f1.write(str(lem1))
+        f1.close()
 
-    # tokenize and normalize label2
+    # tokenize and normalize label2 +stem +lemmatizing
     for name in list_of_dir_2:
-
         d = open("%s"%name, "r", encoding="utf-8") 
         word_data = d.read()
         tokenized_words = tokenize(word_data)
@@ -122,3 +133,9 @@ if __name__ == '__main__':
                 filehandle.write('%s ' % item)
     filehandle.close()
 
+    with open("../MohammadRezaPahlavi/stem2.txt", "w") as f2:
+        f2.write(str(stem1))
+        f2.close()
+    with open("../MohammadRezaPahlavi/lem2.txt", "w") as f2:
+        f2.write(str(lem1))
+        f2.close()
