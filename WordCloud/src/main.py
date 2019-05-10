@@ -10,8 +10,8 @@ from persian_wordcloud.wordcloud import PersianWordCloud, add_stop_words
 
 label1_frequencies = {}
 label2_frequencies = {}
-
-
+str1 = ""
+str2 = ""
 ######################################################################################
 ##        calculate each label's frequency(number of repeats) in order to           ##
 ##  have a manual wordcloud. And I can also check the correctness of module above.  ##
@@ -31,18 +31,18 @@ def calculate_frequences():
 
             elif data in label1_frequencies:
                 label1_frequencies[data] += 1
-
     with open("frequencies_1.txt", 'w') as f:  
         f.write(str(label1_frequencies))
     f.close()
-
-    for freq in label1_frequencies:
-        label1_frequencies[freq] /= len(all_words_list)/100
+    
+     	
+    copy_freq_1 = label1_frequencies.copy()
+    for freq in copy_freq_1:
+        copy_freq_1[freq] /= len(all_words_list)/100
 
     with open("frequencies_1_1.txt", 'w') as f:  
-        f.write(str(label1_frequencies))
+        f.write(str(copy_freq_1))
     f.close()
-
 
     # Label 2
     with open("../../ProcessedData/MohammadRezaPahlavi/label2.txt") as d:
@@ -61,11 +61,12 @@ def calculate_frequences():
         f.write(str(label2_frequencies))
     f.close()
 
-    for freq in label2_frequencies:
-        label2_frequencies[freq] /= len(all_words_list)/100
+    copy_freq_2 = label2_frequencies.copy()
+    for freq in copy_freq_2:
+        copy_freq_2[freq] /= len(all_words_list)/100
 
     with open("frequencies_2_1.txt", 'w') as f:  
-        f.write(str(label2_frequencies))
+        f.write(str(copy_freq_2))
     f.close()
 
 
@@ -95,7 +96,7 @@ def wc_without_removing_stopWords(text, number):
 
 
 def wc_with_removing_stopWords(text, number):
-
+    
     stopWordsList= getStopWordsList()
     stopwords = add_stop_words(stopWordsList)
 
@@ -114,12 +115,46 @@ def wc_with_removing_stopWords(text, number):
     image.show()
     image.save('result%s.png'%number)
 
+def calculate_label1_minus_label2():
+
+    label2_freq_copy = label2_frequencies.copy()
+    label1_freq_copy = label1_frequencies.copy()
+
+    for data2 in label2_freq_copy:
+        if data2 in label1_freq_copy:
+            label1_freq_copy[data2] -= label2_freq_copy[data2]
+            continue
+    str1 = ""
+    for word in label1_freq_copy:
+        if label1_freq_copy[word] >0:
+            str1 += "%s "%word
+    print(str1)
+    return str1
+
+
+def calculate_label2_minus_label1():
+
+    label1_freqq_copy = label1_frequencies.copy()
+    label2_freqq_copy = label2_frequencies.copy()
+
+
+    for data1 in label1_freqq_copy:
+        if data1 in label2_freqq_copy:
+            label2_freqq_copy[data1] -= label1_freqq_copy[data1]
+            continue
+    str2 = ""
+    for word in label2_freqq_copy:
+        if label2_freqq_copy[word] >0:
+            str2 += "%s "%word
+    return str2
+
+
 if __name__ == '__main__':
     
     text1 = open('../../ProcessedData/ImamKhomeini/label1.txt', encoding='utf-8').read()
     text2 = open('../../ProcessedData/MohammadRezaPahlavi/label2.txt', encoding='utf-8').read()
 
-    manual = False
+    manual = True
     # I set it false because I have recorded the results one time
     if manual:
         calculate_frequences()
@@ -128,12 +163,12 @@ if __name__ == '__main__':
     wc_without_removing_stopWords(text2, 2)
     wc_with_removing_stopWords(text1, 3)
     wc_with_removing_stopWords(text2, 4)
-
-    calculate
-    wc_of_label1_minus_label2(text, 5)
-    wc_of_label2_minus_label1(text, 6)
-    wc_of_label1_minus_label2_removeStopWords(text, 7)
-    wc_of_label2_minus_label1_removeStopWords(text, 8)
+    new_text1 = calculate_label1_minus_label2()
+    new_text2 = calculate_label2_minus_label1()
+    wc_without_removing_stopWords(new_text1, 5)
+    wc_without_removing_stopWords(new_text2, 6)
+    wc_with_removing_stopWords(new_text1, 7)
+    wc_with_removing_stopWords(new_text2, 8)
 
 
 
