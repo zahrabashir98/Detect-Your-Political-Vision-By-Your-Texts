@@ -92,7 +92,7 @@ def wc_without_removing_stopWords(text, number):
     ).generate(text)
     image = wordcloud.to_image()
     image.show()
-    image.save('result%s.png'%number)
+    image.save('../out/%s.jpg'%number)
 
 
 def wc_with_removing_stopWords(text, number):
@@ -113,7 +113,7 @@ def wc_with_removing_stopWords(text, number):
     ).generate(text)
     image = wordcloud.to_image()
     image.show()
-    image.save('result%s.png'%number)
+    image.save('../out/%s.jpg'%number)
 
 def calculate_label1_minus_label2():
 
