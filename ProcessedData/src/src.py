@@ -23,6 +23,12 @@ def remove_non_ascii(words):
     # return new_words
     pass
 
+# punc = ['.','؟',':','؛','،','»']
+# def extract(string):
+#     for pun in punc:
+#         string = string.replace(pun, ' ')
+#     # print(string)
+#     return string
 
 def remove_punctuation(words):
     new_words = []
@@ -71,40 +77,48 @@ def normalize(words):
     # words = remove_non_ascii(words)
     words = remove_punctuation(words)
     words = replace_numbers(words)
-    words = remove_stopwords(words)
+    # words = remove_stopwords(words)
     return words
 
-# Main
+if __name__ == '__main__':
 
-list_of_dir_1 = glob.glob("../../Data/ImamKhomeini/*.txt")
-list_of_dir_2 = glob.glob("../../Data/MohammadRezaPahlavi/*.txt")
-# list_of_dir_1 = ["../Data/MohammadRezaPahlavi/1.txt"]
+    list_of_dir_1 = glob.glob("../../Data/ImamKhomeini/*.txt")
+    list_of_dir_2 = glob.glob("../../Data/MohammadRezaPahlavi/*.txt")
 
-counter1 = 1
-counter2 = 1
+    counter1 = 1
+    counter2 = 1
+    ImamList = []
+    ShahList = []
 
-for name in list_of_dir_1:
+    # tokenize and normalize label1
+    for name in list_of_dir_1:
+        d = open("%s"%name, "r", encoding="utf-8") 
+        word_data = d.read()
+        tokenized_words = tokenize(word_data)
+        words = normalize(tokenized_words)
+        ImamList.append(words)
+        counter1 += 1
 
-    d = open("%s"%name, "r", encoding="utf-8") 
-    word_data = d.read()
-    tokenized_words = tokenize(word_data)
-    words = normalize(tokenized_words)
-    print(words)
-    with open("../ImamKhomeini/%s.txt"%counter1, 'w') as filehandle:  
-        for item in words:
-            filehandle.write('%s ' % item)
-        filehandle.close()
-    counter1 += 1
+    with open("../ImamKhomeini/label1.txt", 'w') as filehandle: 
+        for lists in ImamList: 
+            for item in lists:
+                filehandle.write('%s ' % item)
+    filehandle.close()
 
-for name in list_of_dir_2:
 
-    d = open("%s"%name, "r", encoding="utf-8") 
-    word_data = d.read()
-    tokenized_words = tokenize(word_data)
-    words = normalize(tokenized_words)
-    print(words)
-    with open("../MohammadRezaPahlavi/%s.txt"%counter2, 'w') as filehandle:  
-        for item in words:
-            filehandle.write('%s ' % item)
-        filehandle.close()
-    counter2 += 1
+    # tokenize and normalize label2
+    for name in list_of_dir_2:
+
+        d = open("%s"%name, "r", encoding="utf-8") 
+        word_data = d.read()
+        tokenized_words = tokenize(word_data)
+        words = normalize(tokenized_words)
+        ShahList.append(words)
+        counter2 += 1
+
+    with open("../MohammadRezaPahlavi/label2.txt", 'w') as filehandle:  
+        for lists in ShahList: 
+            for item in lists:
+                filehandle.write('%s ' % item)
+    filehandle.close()
+
