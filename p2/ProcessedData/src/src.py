@@ -96,6 +96,7 @@ if __name__ == '__main__':
 
     # tokenize and normalize label1 +stem +lemmatizing
     for name in list_of_dir_1:
+        print(name)
         d = open("%s"%name, "r", encoding="utf-8") 
         word_data = d.read()
         tokenized_words = tokenize(word_data)
