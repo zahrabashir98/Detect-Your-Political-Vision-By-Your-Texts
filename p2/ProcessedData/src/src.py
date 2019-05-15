@@ -81,7 +81,7 @@ def normalize(words):
     ########################################################################################################
     #  I read somewhere that stopwords are in Normalizing but according to the HW I apply it in WordCloud  #
     ########################################################################################################
-    # words = remove_stopwords(words)
+    words = remove_stopwords(words)
     return words
 
 if __name__ == '__main__':
@@ -96,7 +96,7 @@ if __name__ == '__main__':
 
     # tokenize and normalize label1 +stem +lemmatizing
     for name in list_of_dir_1:
-        print(name)
+        # print(name)
         d = open("%s"%name, "r", encoding="utf-8") 
         word_data = d.read()
         tokenized_words = tokenize(word_data)
@@ -112,10 +112,10 @@ if __name__ == '__main__':
                 filehandle.write('%s ' % item)
     filehandle.close()
 
-    with open("../ImamKhomeini/stem1.txt", "w") as f1:
+    with open("../ImamKhomeini/extra_info/stem1.txt", "w") as f1:
         f1.write(str(stem1))
         f1.close()
-    with open("../ImamKhomeini/lem1.txt", "w") as f1:
+    with open("../ImamKhomeini/extra_info/lem1.txt", "w") as f1:
         f1.write(str(lem1))
         f1.close()
 
@@ -134,9 +134,9 @@ if __name__ == '__main__':
                 filehandle.write('%s ' % item)
     filehandle.close()
 
-    with open("../MohammadRezaPahlavi/stem2.txt", "w") as f2:
+    with open("../MohammadRezaPahlavi/extra_info/stem2.txt", "w") as f2:
         f2.write(str(stem1))
         f2.close()
-    with open("../MohammadRezaPahlavi/lem2.txt", "w") as f2:
+    with open("../MohammadRezaPahlavi/extra_info/lem2.txt", "w") as f2:
         f2.write(str(lem1))
         f2.close()
