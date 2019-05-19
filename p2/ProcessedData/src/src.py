@@ -86,57 +86,99 @@ def normalize(words):
 
 if __name__ == '__main__':
 
+    second_phase = True
     list_of_dir_1 = glob.glob("../../Data/ImamKhomeini/*.txt")
     list_of_dir_2 = glob.glob("../../Data/MohammadRezaPahlavi/*.txt")
 
-    counter1 = 1
-    counter2 = 1
-    ImamList = []
-    ShahList = []
+    if not second_phase:
 
-    # tokenize and normalize label1 +stem +lemmatizing
-    for name in list_of_dir_1:
-        # print(name)
-        d = open("%s"%name, "r", encoding="utf-8") 
-        word_data = d.read()
-        tokenized_words = tokenize(word_data)
-        words = normalize(tokenized_words)
-        stem1 = stem_words(words)
-        lem1 = lemmatize_verbs(words)
-        ImamList.append(words)
-        counter1 += 1
+        counter1 = 1
+        counter2 = 1
+        ImamList = []
+        ShahList = []
 
-    with open("../ImamKhomeini/label1.txt", 'w') as filehandle: 
-        for lists in ImamList: 
-            for item in lists:
-                filehandle.write('%s ' % item)
-    filehandle.close()
+        # tokenize and normalize label1 +stem +lemmatizing
+        for name in list_of_dir_1:
+            # print(name)
+            d = open("%s"%name, "r", encoding="utf-8") 
+            word_data = d.read()
+            tokenized_words = tokenize(word_data)
+            words = normalize(tokenized_words)
+            stem1 = stem_words(words)
+            lem1 = lemmatize_verbs(words)
+            ImamList.append(words)
+            counter1 += 1
 
-    with open("../ImamKhomeini/extra_info/stem1.txt", "w") as f1:
-        f1.write(str(stem1))
+        with open("../ImamKhomeini/label1.txt", 'w') as filehandle: 
+            for lists in ImamList: 
+                for item in lists:
+                    filehandle.write('%s ' % item)
+        filehandle.close()
+
+        with open("../ImamKhomeini/extra_info/stem1.txt", "w") as f1:
+            f1.write(str(stem1))
+            f1.close()
+        with open("../ImamKhomeini/extra_info/lem1.txt", "w") as f1:
+            f1.write(str(lem1))
+            f1.close()
+
+        # tokenize and normalize label2 +stem +lemmatizing
+        for name in list_of_dir_2:
+            d = open("%s"%name, "r", encoding="utf-8") 
+            word_data = d.read()
+            tokenized_words = tokenize(word_data)
+            words = normalize(tokenized_words)
+            ShahList.append(words)
+            counter2 += 1
+
+        with open("../MohammadRezaPahlavi/label2.txt", 'w') as filehandle:  
+            for lists in ShahList: 
+                for item in lists:
+                    filehandle.write('%s ' % item)
+        filehandle.close()
+
+        with open("../MohammadRezaPahlavi/extra_info/stem2.txt", "w") as f2:
+            f2.write(str(stem1))
+            f2.close()
+        with open("../MohammadRezaPahlavi/extra_info/lem2.txt", "w") as f2:
+            f2.write(str(lem1))
+            f2.close()
+
+
+
+    if second_phase :
+
+        filenames_1 = []
+        for name in list_of_dir_1:
+            filenames_1.append (name)
+        with open('../ImamKhomeini/concat_all_1.txt', 'w') as outfile:
+            for fname in filenames_1:
+                with open(fname) as infile:
+                    for line in infile:
+                        outfile.write(line)
+        fp = open("../ImamKhomeini/concat_all_1.txt")
+        data = fp.read()
+        tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+        data = "<s> %s"%data
+        # print ('<\s>\n<s>'.join(tokenizer.tokenize(data)))
+        with open("../ImamKhomeini/lebel1_begin_end.txt", "w") as f1 :
+            f1.write((' <\s> <s> '.join(tokenizer.tokenize(data))).replace("\n", ""))
         f1.close()
-    with open("../ImamKhomeini/extra_info/lem1.txt", "w") as f1:
-        f1.write(str(lem1))
-        f1.close()
 
-    # tokenize and normalize label2 +stem +lemmatizing
-    for name in list_of_dir_2:
-        d = open("%s"%name, "r", encoding="utf-8") 
-        word_data = d.read()
-        tokenized_words = tokenize(word_data)
-        words = normalize(tokenized_words)
-        ShahList.append(words)
-        counter2 += 1
 
-    with open("../MohammadRezaPahlavi/label2.txt", 'w') as filehandle:  
-        for lists in ShahList: 
-            for item in lists:
-                filehandle.write('%s ' % item)
-    filehandle.close()
-
-    with open("../MohammadRezaPahlavi/extra_info/stem2.txt", "w") as f2:
-        f2.write(str(stem1))
-        f2.close()
-    with open("../MohammadRezaPahlavi/extra_info/lem2.txt", "w") as f2:
-        f2.write(str(lem1))
+        filenames_2 = []
+        for name in list_of_dir_2:
+            filenames_2.append (name)
+        with open('../MohammadRezaPahlavi/concat_all_2.txt', 'w') as outfile:
+            for fname in filenames_2:
+                with open(fname) as infile:
+                    for line in infile:
+                        outfile.write(line)
+        fp = open("../MohammadRezaPahlavi/concat_all_2.txt")
+        data = fp.read()
+        tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+        data = "<s> %s"%data
+        # print ('<\s>\n<s>'.join(tokenizer.tokenize(data)))
+        with open("../MohammadRezaPahlavi/lebel2_begin_end.txt", "w") as f2 :
+            f2.write((' <\s> <s> '.join(tokenizer.tokenize(data))).replace("\n", ""))
         f2.close()

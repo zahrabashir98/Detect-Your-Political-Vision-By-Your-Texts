@@ -18,7 +18,10 @@ str2 = ""
 ######################################################################################
 
 def calculate_frequences():
-
+    label_1_tokens = 0
+    label_2_tokens = 0
+    label_1_vocab = 0
+    label_2_vocab = 0
     # Label 1
     with open("../../ProcessedData/ImamKhomeini/label1.txt") as d:
         content = d.read()
@@ -28,21 +31,25 @@ def calculate_frequences():
         for data in all_words_list:
             if data not in label1_frequencies:
                 label1_frequencies[data] = 1
+                label_1_tokens += 1
+                label_1_vocab += 1
 
             elif data in label1_frequencies:
                 label1_frequencies[data] += 1
-    with open("extra_data(frequencies)/frequencies_1.txt", 'w') as f:  
+                label_1_tokens += 1
+
+    with open("frequencies/frequencies_1.txt", 'w') as f:  
         f.write(str(label1_frequencies))
     f.close()
     
      	
-    copy_freq_1 = label1_frequencies.copy()
-    for freq in copy_freq_1:
-        copy_freq_1[freq] /= len(all_words_list)/100
+    # copy_freq_1 = label1_frequencies.copy()
+    # for freq in copy_freq_1:
+    #     copy_freq_1[freq] /= len(all_words_list)/100
 
-    with open("extra_data(frequencies)/frequencies_1_1.txt", 'w') as f:  
-        f.write(str(copy_freq_1))
-    f.close()
+    # with open("frequencies/frequencies_1_1.txt", 'w') as f:  
+    #     f.write(str(copy_freq_1))
+    # f.close()
 
     # Label 2
     with open("../../ProcessedData/MohammadRezaPahlavi/label2.txt") as d:
@@ -53,21 +60,26 @@ def calculate_frequences():
         for data in all_words_list:
             if data not in label2_frequencies:
                 label2_frequencies[data] = 1
+                label_2_tokens += 1
+                label_2_vocab += 1
 
             elif data in label2_frequencies:
                 label2_frequencies[data] += 1
+                label_2_tokens += 1
 
-    with open("extra_data(frequencies)/frequencies_2.txt", 'w') as f:  
+    with open("frequencies/frequencies_2.txt", 'w') as f:  
         f.write(str(label2_frequencies))
     f.close()
+    with open("frequencies/number_of_entities.txt","w") as nu :
+        nu.write("%s-%s-%s-%s"%(label_1_tokens, label_1_vocab, label_2_tokens, label_2_vocab))
+    nu.close()
+    # copy_freq_2 = label2_frequencies.copy()
+    # for freq in copy_freq_2:
+    #     copy_freq_2[freq] /= len(all_words_list)/100
 
-    copy_freq_2 = label2_frequencies.copy()
-    for freq in copy_freq_2:
-        copy_freq_2[freq] /= len(all_words_list)/100
-
-    with open("extra_data(frequencies)/frequencies_2_1.txt", 'w') as f:  
-        f.write(str(copy_freq_2))
-    f.close()
+    # with open("frequencies/frequencies_2_1.txt", 'w') as f:  
+    #     f.write(str(copy_freq_2))
+    # f.close()
 
 
 
@@ -159,16 +171,16 @@ if __name__ == '__main__':
     if manual:
         calculate_frequences()
 
-    wc_without_removing_stopWords(text1, 1)
-    wc_without_removing_stopWords(text2, 2)
-    wc_with_removing_stopWords(text1, 3)
-    wc_with_removing_stopWords(text2, 4)
-    new_text1 = calculate_label1_minus_label2()
-    new_text2 = calculate_label2_minus_label1()
-    wc_without_removing_stopWords(new_text1, 5)
-    wc_without_removing_stopWords(new_text2, 6)
-    wc_with_removing_stopWords(new_text1, 7)
-    wc_with_removing_stopWords(new_text2, 8)
+    # wc_without_removing_stopWords(text1, 1)
+    # wc_without_removing_stopWords(text2, 2)
+    # wc_with_removing_stopWords(text1, 3)
+    # wc_with_removing_stopWords(text2, 4)
+    # new_text1 = calculate_label1_minus_label2()
+    # new_text2 = calculate_label2_minus_label1()
+    # wc_without_removing_stopWords(new_text1, 5)
+    # wc_without_removing_stopWords(new_text2, 6)
+    # wc_with_removing_stopWords(new_text1, 7)
+    # wc_with_removing_stopWords(new_text2, 8)
 
 
 
