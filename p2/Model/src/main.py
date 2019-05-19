@@ -42,26 +42,42 @@ def unigram_calculate_frequences(t1,t2,v1,v2):
                 t2 += 1
     return t1,t2,v1,v2
 
-def unigram(word):
+def unigram():
     t1,t2,v1,v2 = unigram_calculate_frequences(unigram_label_1_tokens, unigram_label_2_tokens, unigram_label_1_vocab, unigram_label_2_vocab)
-    y = input("Train in label1 or label2?\n1/2")
-    if y == '1':
-        num_of_repeats = unigram_label1_frequencies[word]
-        print(num_of_repeats)
-        print(t1)
-        p_x = (num_of_repeats + 1) /(t1  +v1 + 1)
-        print(p_x)
+    with open("../label1.1gram.lm", "w") as f1:
+        for word in unigram_label1_frequencies:
+            num_of_repeats = unigram_label1_frequencies[word]
+            # print(num_of_repeats)
+            p_x = (num_of_repeats + 1) /(t1  +v1 + 1)
+            f1.write("%s|%s\n"%(word,p_x))
+    f1.close()
 
-    else :
-        num_of_repeats = unigram_label2_frequencies[word]
-        print(num_of_repeats)
-        print(t2)
-        p_x = (num_of_repeats + 1) /(t2  +v2 + 1)
-        print(p_x)
-    print("**********************")
+    with open("../label2.1gram.lm", "w") as f2:
+        for word in unigram_label2_frequencies:
+            num_of_repeats = unigram_label2_frequencies[word]
+            # print(num_of_repeats)
+            p_x = (num_of_repeats + 1) /(t2  +v2 + 1)
+            f2.write("%s|%s\n"%(word,p_x))
+    f2.close()
+
+    # y = input("Train in label1 or label2?\n1/2")
+    # if y == '1':
+    #     num_of_repeats = unigram_label1_frequencies[word]
+    #     print(num_of_repeats)
+    #     print(t1)
+    #     p_x = (num_of_repeats + 1) /(t1  +v1 + 1)
+    #     print(p_x)
+
+    # else :
+    #     num_of_repeats = unigram_label2_frequencies[word]
+    #     print(num_of_repeats)
+    #     print(t2)
+    #     p_x = (num_of_repeats + 1) /(t2  +v2 + 1)
+    #     print(p_x)
+    # print("**********************")
     return v1,v2
 
-def bigram(word, v1, v2):
+def bigram( v1, v2):
 
     with open("../../ProcessedData/ImamKhomeini/inpp.txt") as d:
         content = d.read()
@@ -96,7 +112,7 @@ def bigram(word, v1, v2):
     for i in range(len(all_words_list)):
         if i != len(all_words_list)-1:
 
-            if all_words_list[i] == '<s>':
+            if all_words_list[i] == '<s>' or "<\\s>":
                 number_of_start_symbols_2 += 1
 
             pair_string = all_words_list[i] +" "+ all_words_list[i+1]
@@ -109,31 +125,55 @@ def bigram(word, v1, v2):
                 bigram_label2_frequencies[pair_string] += 1
                 pair_string = ""
 
-    words = word.split(" ")
-    print(words)
-    y = input("Train in label1 or label2?\n1/2")
+    # saving language model
+    with open("../label1.2gram.lm", "w") as f1:
+        for word in bigram_label1_frequencies:
+            parts = word.split(" ")
+            num_of_repeats = bigram_label1_frequencies[word]
+            if parts[0] == "<s>" or "<\\s>":
+                p_x = (num_of_repeats + 1) /(number_of_start_symbols_1  +v1 + 1)
+            else:
+                p_x = (num_of_repeats + 1) /(unigram_label1_frequencies[parts[0]]  +v1 + 1)
 
-    if y == '1':
-        num_of_repeats = bigram_label1_frequencies[word]
-        print(num_of_repeats)
-        if words[0] == "<s>":
-            p_x = (num_of_repeats + 1) /(number_of_start_symbols_1  +v1 + 1)
-        else:
-            p_x = (num_of_repeats + 1) /(unigram_label1_frequencies[words[0]]  +v1 + 1)
-        print(p_x)
+            f1.write("%s|%s\n"%(word,p_x))
+    f1.close()
 
-    else :
-        num_of_repeats = bigram_label2_frequencies[word]
-        print(num_of_repeats)
-        if words[0] == "<s>":
-            p_x = (num_of_repeats + 1) /(number_of_start_symbols_2  +v2 + 1)
-        else:
-            p_x = (num_of_repeats + 1) /(unigram_label2_frequencies[words[0]]  +v2 + 1)
-        print(p_x)
+    with open("../label2.2gram.lm", "w") as f2:
+        for word in bigram_label2_frequencies:
+            parts = word.split(" ")
+            num_of_repeats = bigram_label2_frequencies[word]
+            if parts[0] == "<s>" or "<\\s>":
+                p_x = (num_of_repeats + 1) /(number_of_start_symbols_2  +v1 + 1)
+            else:
+                p_x = (num_of_repeats + 1) /(unigram_label2_frequencies[parts[0]]  +v2 + 1)
 
-    print("**********************")
+            f2.write("%s|%s\n"%(word,p_x))
+    f2.close()
+    # words = word.split(" ")
+    # print(words)
+    # y = input("Train in label1 or label2?\n1/2")
 
-def trigram(word, v1, v2):
+    # if y == '1':
+    #     num_of_repeats = bigram_label1_frequencies[word]
+    #     print(num_of_repeats)
+    #     if words[0] == "<s>":
+    #         p_x = (num_of_repeats + 1) /(number_of_start_symbols_1  +v1 + 1)
+    #     else:
+    #         p_x = (num_of_repeats + 1) /(unigram_label1_frequencies[words[0]]  +v1 + 1)
+    #     print(p_x)
+
+    # else :
+    #     num_of_repeats = bigram_label2_frequencies[word]
+    #     print(num_of_repeats)
+    #     if words[0] == "<s>":
+    #         p_x = (num_of_repeats + 1) /(number_of_start_symbols_2  +v2 + 1)
+    #     else:
+    #         p_x = (num_of_repeats + 1) /(unigram_label2_frequencies[words[0]]  +v2 + 1)
+    #     print(p_x)
+
+    # print("**********************")
+
+def trigram( v1, v2):
     with open("../../ProcessedData/ImamKhomeini/inpp.txt") as d:
         content = d.read()
         all_words_list = content.split(' ')
@@ -173,25 +213,42 @@ def trigram(word, v1, v2):
             elif triple_string in trigram_label2_frequencies:
                 trigram_label2_frequencies[triple_string] += 1
                 triple_string = ""
+    
+    # saving language model
+    with open("../label1.3gram.lm", "w") as f1:
+        for word in trigram_label1_frequencies:
+            parts = word.split(" ")
+            num_of_repeats = trigram_label1_frequencies[word]
+            p_x = (num_of_repeats + 1) /(bigram_label1_frequencies[parts[0]+" "+ parts[1]]  +v1 + 1)
+            f1.write("%s|%s\n"%(word,p_x))
+    f1.close()
+
+    with open("../label2.3gram.lm", "w") as f2:
+        for word in trigram_label2_frequencies:
+            parts = word.split(" ")
+            num_of_repeats = trigram_label2_frequencies[word]
+            p_x = (num_of_repeats + 1) /(bigram_label2_frequencies[parts[0]+" "+ parts[1]]  +v2 + 1)
+            f2.write("%s|%s\n"%(word,p_x))
+    f2.close()
     # print(trigram_label2_frequencies)
     
-    words = word.split(" ")
-    print(words)
-    y = input("Train in label1 or label2?\n1/2")
+    # words = word.split(" ")
+    # print(words)
+    # y = input("Train in label1 or label2?\n1/2")
 
-    if y == '1':
-        num_of_repeats = trigram_label1_frequencies[word]
-        print(num_of_repeats)
-        p_x = (num_of_repeats + 1) /(bigram_label1_frequencies[words[0]+" "+ words[1]]  +v1 + 1)
-        print(p_x)
+    # if y == '1':
+    #     num_of_repeats = trigram_label1_frequencies[word]
+    #     print(num_of_repeats)
+    #     p_x = (num_of_repeats + 1) /(bigram_label1_frequencies[words[0]+" "+ words[1]]  +v1 + 1)
+    #     print(p_x)
 
-    else :
-        num_of_repeats = trigram_label2_frequencies[word]
-        print(num_of_repeats)
-        p_x = (num_of_repeats + 1) /(bigram_label2_frequencies[words[0]+" "+words[1]]  +v2 + 1)
-        print(p_x)
+    # else :
+    #     num_of_repeats = trigram_label2_frequencies[word]
+    #     print(num_of_repeats)
+    #     p_x = (num_of_repeats + 1) /(bigram_label2_frequencies[words[0]+" "+words[1]]  +v2 + 1)
+    #     print(p_x)
 
-    print("**********************")
+    # print("**********************")
 
 
 if __name__ == "__main__":
@@ -200,7 +257,7 @@ if __name__ == "__main__":
     unigram_label_1_vocab = 0
     unigram_label_2_vocab = 0
 
-    v1,v2 = unigram("dogs")
-    bigram("<s> dogs",v1, v2)
-    trigram("<s> dogs chase", v1, v2)
+    v1, v2 = unigram()
+    bigram(v1, v2)
+    trigram(v1, v2)
     # handle if data was UNK

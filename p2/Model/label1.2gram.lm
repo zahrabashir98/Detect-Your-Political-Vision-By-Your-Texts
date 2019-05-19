@@ -1,0 +1,20 @@
+<s> dogs|0.3125
+dogs chase|0.25
+chase cats|0.125
+cats <\s>|0.1875
+<\s> <s>|0.4375
+dogs bark|0.125
+bark <\s>|0.125
+<s> cats|0.1875
+cats meow|0.125
+meow <\s>|0.125
+chase birds|0.1875
+birds <\s>|0.1875
+cats chase|0.125
+chase the|0.125
+the cats|0.125
+<s> the|0.125
+the birds|0.125
+birds chirp|0.125
+chirp <\s>
+|0.125
