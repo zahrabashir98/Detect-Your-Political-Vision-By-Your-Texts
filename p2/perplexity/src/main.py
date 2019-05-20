@@ -14,6 +14,7 @@ def get_unigram_dictionary(language_model_dirs):
             unigram_dictionary[key] = value
     return unigram_dictionary 
 
+
 def calculate_unigram_perplexity(language_model, text):
 
     all_words = text.split(" ")
@@ -40,8 +41,8 @@ def calculate_unigram_perplexity(language_model, text):
     print("PP = %s"%PP)
     return PP
 
-
 #**************************************************************************#
+
 bigram_dictionary = {}
 def get_bigram_dictionary(language_model_dirs):
     with open(language_model_dir) as f1:
@@ -98,6 +99,7 @@ def calculate_bigram_perplexity(language_model, text):
     return PP
 
 #**********************************************************************************#
+
 trigram_dictionary={}
 def get_trigram_dictionary(language_model_dirs):
     with open(language_model_dir) as f1:
@@ -156,7 +158,7 @@ def calculate_trigram_perplexity(language_model, text):
     print("PP = %s"%PP)
     return (PP)
 
-
+# UNK
 if __name__ == "__main__":
     tyype = input("What is your language model type?\n1)unigram\n2)bigram\n3)trigram")
     if tyype == "1":
