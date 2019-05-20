@@ -1,0 +1,10 @@
+# Split Data
+I split my data into two distributions of (80,20) as the following method:
+I generated random indexes of  test sets(about 20% of all) and then dedicated the rest indexes to the train set.
+
+## How To Run
+You  only need a simple file run:
+
+`cd SplitData/src/main.py`
+`python3 main.py`
+
