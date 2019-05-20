@@ -1,8 +1,13 @@
 import random
+from decimal import *
+
 unigram_dict_1 = {}
 unigram_dict_2 = {}
 bigram_dict_1 = {}
+bigram_dict_2 = {}
 trigram_dict_1 = {}
+trigram_dict_2 = {}
+
 
 def get_unigram_dixt():
     with open("../../Model/label1.1gram.lm") as f2:
@@ -50,6 +55,23 @@ def get_bigram_dict_1():
             bigram_dict_1[key] = value
     return bigram_dict_1 
 
+
+def get_bigram_dict_2():
+    with open("../../Model/label2.2gram.lm") as f2:
+        d = f2.read().split("\n")
+        u1 = []
+
+        for data in d:
+            u1.append(data.replace("|"," "))
+        u1.pop()
+        # print(u1)
+        for data in u1:
+            key = (data.split(" ")[0], data.split(" ")[1])
+            value = data.split(" ")[2]
+            bigram_dict_2[key] = value
+    return bigram_dict_2
+
+
 def get_trigram_dict_1():
 
     with open("../../Model/label1.3gram.lm") as f1:
@@ -65,6 +87,23 @@ def get_trigram_dict_1():
             value = data.split(" ")[3]
             trigram_dict_1[key] = value
     return trigram_dict_1 
+
+
+def get_trigram_dict_2():
+
+    with open("../../Model/label2.3gram.lm") as f2:
+        d = f2.read().split("\n")
+        u2 = []
+
+        for data in d:
+            u2.append(data.replace("|"," "))
+        u2.pop()
+        # print(u2)
+        for data in u2:
+            key = (data.split(" ")[0], data.split(" ")[1], data.split(" ")[2])
+            value = data.split(" ")[3]
+            trigram_dict_2[key] = value
+    return trigram_dict_2 
 
 #########################################################
 
@@ -105,12 +144,23 @@ def get_random_word_unigram2(p):
             return "."        
              
 def get_random_word_bigram1(p):
-
     sum = 0
     for key, value in bigram_dict_1.items():          
         sum += float(value)
         if p <= sum:
             return key
+
+
+def get_random_word_bigram2(p):
+    sum = 0
+    for key, value in bigram_dict_2.items():   
+        print(value)
+        if value != "":
+            value = 0.0001      
+        sum += Decimal(value)
+        if p <= sum:
+            return key
+
 
 def get_random_word_trigram1(p):
     sum = 0
@@ -119,6 +169,13 @@ def get_random_word_trigram1(p):
         if p <= sum:
             return key
 
+
+def get_random_word_trigram2(p):
+    sum = 0
+    for key, value in trigram_dict_1.items():          
+        sum += float(value)
+        if p <= sum:
+            return key
 #################################################
 
 if __name__ == '__main__':
@@ -206,6 +263,35 @@ if __name__ == '__main__':
                 f1.write(string[1:len(string)]+"\n")
   
 
+        print("LABEL2")
+        n2 = int(input ("enter n for label2 bigram: "))
+        # bigram
+        bigram_dict_2= get_bigram_dict_2()
+        # print(bigram_dict_2)
+        new_word = ["",""]
+        string = ""
+        counter = 0
+
+        with open("../‫‪label2.2gram.gen‬‬", "w") as f2:
+            for i in range(n2):
+                string = ""
+                counter = 0
+                new_word = ["",""]
+                while(new_word[1]!= "<\s>"  ):
+                    if counter == 0 :
+                        new_word = get_random_word_bigram2(random.random())
+                        if new_word[0] == "<s>":
+                            string += " " + new_word[0] +" " + new_word [1]
+                            counter += 1
+                    else:
+                        new_word = get_random_word_bigram2(random.random())
+                        if new_word[0] != "<s>":
+                            string += " " + new_word[0] +" "+ new_word [1]
+                            counter += 1
+            
+                print(string)
+                f2.write(string[1:len(string)]+"\n")
+  
     if tyype == "3":
         print("LABEL1")
         n1 = int(input ("enter n for label1 trigram: "))
@@ -235,3 +321,32 @@ if __name__ == '__main__':
             
                 print("jomle : %s"%string)
                 f1.write(string[1:len(string)]+"\n")
+
+        print("LABEL2")
+        n2 = int(input ("enter n for label2 trigram: "))
+
+        trigram_dict_2= get_trigram_dict_2()
+        new_word = ["", "", ""]
+        string = ""
+        counter = 0
+
+        with open("../‫‪label2.3gram.gen‬‬", "w") as f2:
+            for i in range(n2):
+                string = ""
+                counter = 0
+                new_word = ["", "", ""]
+
+                while(new_word[2]!= "<\s>"  ):
+                    if counter == 0 :
+                        new_word = get_random_word_trigram2(random.random())
+                        if new_word[0] == "<s>":
+                            string += " " + new_word[0] +" " + new_word [1] + " " + new_word[2]
+                            counter += 1
+                    else:
+                        new_word = get_random_word_trigram2(random.random())
+                        if new_word[0] != "<s>":
+                            string += " " + new_word[0] + new_word [1] + " " + new_word[2]
+                            counter += 1
+            
+                print("jomle : %s"%string)
+                f2.write(string[1:len(string)]+"\n")

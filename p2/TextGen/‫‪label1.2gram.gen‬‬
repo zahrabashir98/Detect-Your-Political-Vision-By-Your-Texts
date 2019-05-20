@@ -1,0 +1,10 @@
+<s> dogs chase cats dogs chase dogs chase <\s> <s> cats <\s>
+<s> dogs dogs chase chase cats cats <\s>
+
+
+
+
+<s> dogs dogs chase dogs chase chase cats chase cats cats <\s>
+<s> dogs cats <\s>
+<s> dogs <\s> <s> <\s> <s> chase cats cats <\s>
+<s> dogs cats <\s>
