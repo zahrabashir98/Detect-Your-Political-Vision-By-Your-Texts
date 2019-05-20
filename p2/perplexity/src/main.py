@@ -18,7 +18,8 @@ def get_dictionary(language_model_dirs):
 def calculate_perplexity(language_model, text):
 
     all_words = text.split(" ")
-
+    N = len(all_words)
+    UNK = 0.0004
     dictionary = get_dictionary(language_model_dir)
     print(dictionary)
     # p_w = p_w0|<s> + p_w1|w0 + p_w2|w1 +...
@@ -26,20 +27,32 @@ def calculate_perplexity(language_model, text):
     p = 1
     for i in range(len(all_words)):
         if counter == 0:
-            p0 = dictionary[("<s>", "%s"%all_words[0])]
-            print(p0)
+            try:
+                p0 = float(dictionary[("<s>", "%s"%all_words[0])])
+            except:
+                p0 = UNK
+                N = N+1
             
         else:
-            num = float(dictionary[("%s"%all_words[i-1], "%s"%all_words[i])])
-            p = p0 * num
+            try:
+                num = float(dictionary[("%s"%all_words[i-1], "%s"%all_words[i])])
+                p *= num
+            except:
+                p *= UNK
+                flag = True
+
             
         counter +=1
-    # print(p)
-
-
-
+    p = p0 * num
+    print(p)
+    if flag:
+        PP = p**-(1/float(N+1))
+    else:
+        PP = p**-(1/float(N))
+    print("PP = %s"%PP)
+    return (PP)
 
 
 if __name__ == "__main__":
     language_model_dir ="../../Model/label1.2gram.lm"
-    calculate_perplexity(language_model_dir, "dogs chase")
+    calculate_perplexity(language_model_dir, "dogs chase Me")
