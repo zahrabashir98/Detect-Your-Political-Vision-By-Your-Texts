@@ -42,20 +42,30 @@ def unigram_calculate_frequences(t1,t2,v1,v2):
 
 def unigram():
     t1,t2,v1,v2 = unigram_calculate_frequences(unigram_label_1_tokens, unigram_label_2_tokens, unigram_label_1_vocab, unigram_label_2_vocab)
+    file1 = open("../bare_p_1_unigram.txt","w")
+    file2 = open("../bare_data_1_unigram.txt","w")
     with open("../label1.1gram.lm", "w") as f1:
         for word in unigram_label1_frequencies:
             num_of_repeats = unigram_label1_frequencies[word]
             # print(num_of_repeats)
             p_x = (num_of_repeats + 1) /(t1  +v1 + 1)
+            file1.write("%s\n"%p_x)
             f1.write("%s|%s\n"%(word,p_x))
-    f1.close()
+            file2.write("%s\n"%word)
 
+    f1.close()
+    file1.close()
+
+    file1 = open("../bare_p_2_unigram.txt","w")
+    file2 = open("../bare_data_2_unigram.txt","w")
     with open("../label2.1gram.lm", "w") as f2:
         for word in unigram_label2_frequencies:
             num_of_repeats = unigram_label2_frequencies[word]
             # print(num_of_repeats)
             p_x = (num_of_repeats + 1) /(t2  +v2 + 1)
+            file1.write("%s\n"%p_x)
             f2.write("%s|%s\n"%(word,p_x))
+            file2.write("%s\n"%word)
     f2.close()
 
     return v1,v2
@@ -114,6 +124,7 @@ def bigram( v1, v2):
                     pair_string = ""
 
     # saving language model
+
     with open("../label1.2gram.lm", "w") as f1:
         for word in bigram_label1_frequencies:
             parts = word.split(" ")
@@ -122,10 +133,8 @@ def bigram( v1, v2):
                 p_x = (num_of_repeats + 1) /(number_of_start_symbols_1  +v1 + 1)
             else:
                 p_x = (num_of_repeats + 1) /(unigram_label1_frequencies[parts[0]]  +v1 + 1)
-
             f1.write("%s|%s\n"%(word,p_x))
     f1.close()
-
     with open("../label2.2gram.lm", "w") as f2:
         for word in bigram_label2_frequencies:
             parts = word.split(" ")

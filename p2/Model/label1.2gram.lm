@@ -16,5 +16,4 @@ the cats|0.125
 <s> the|0.125
 the birds|0.125
 birds chirp|0.125
-chirp <\s>
-|0.125
+chirp <\s>|0.125
