@@ -1,4 +1,4 @@
 # Language Model
 There is a python file in Model/src/main.py and you only need to run:
 `python3 main.py`
-
+Then you have two options according to the doc's questions.
