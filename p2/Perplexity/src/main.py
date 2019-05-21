@@ -206,41 +206,88 @@ if __name__ == "__main__":
         calculate_trigram_perplexity(language_model_dir, text)
 
     if tyype == "4":
+        print("\n")
+        print("***********LABEL1 - TRAIN*************\n")
 
         language_model_dir = "../../Model/label1.1gram.lm"
-        with open("../../SplitData/ImamKhomeini/test/label1.txt") as f1:
+        with open("../../SplitData/ImamKhomeini/train/shorten.txt") as f1:
+            text = f1.read()
+        print("Perplexity of unigram - train data- label1")
+        calculate_unigram_perplexity(language_model_dir, text)
+
+        language_model_dir = "../../Model/label1.2gram.lm"
+        with open("../../SplitData/ImamKhomeini/train/shorten.txt") as f1:
+            text = f1.read()
+        print("Perplexity of bigram - train data- label1")
+        calculate_bigram_perplexity(language_model_dir, text)
+
+        language_model_dir = "../../Model/label1.3gram.lm"
+        with open("../../SplitData/ImamKhomeini/train/shorten.txt") as f1:
+            text = f1.read()
+        print("Perplexity of trigram - train data- label1")
+        calculate_trigram_perplexity(language_model_dir, text)
+        
+        print("\n")
+        print("***********LABEL2 - TRAIN*************\n")
+        
+        language_model_dir = "../../Model/label2.2gram.lm"
+        with open("../../SplitData/MohammadRezaPahlavi/train/shorten.txt") as f1:
+            text = f1.read()
+        print("Perplexity of unigram - train data- label2")
+        calculate_bigram_perplexity(language_model_dir, text)
+  
+        language_model_dir = "../../Model/label2.1gram.lm"
+        with open("../../SplitData/MohammadRezaPahlavi/train/shorten.txt") as f1:
+            text = f1.read()
+        print("Perplexity of unigram - train data- label2")
+        calculate_unigram_perplexity(language_model_dir, text)
+
+
+        language_model_dir = "../../Model/label2.3gram.lm"
+        with open("../../SplitData/MohammadRezaPahlavi/train/shorten.txt") as f1:
+            text = f1.read()
+        print("Perplexity of unigram - train data- label2")
+        calculate_trigram_perplexity(language_model_dir, text)
+
+        
+        print("\n")
+        print("***********LABEL1 - TEST*************\n")
+    
+        language_model_dir = "../../Model/label1.1gram.lm"
+        with open("../../SplitData/ImamKhomeini/test/shorten.txt") as f1:
             text = f1.read()
         print("Perplexity of unigram - test data- label1")
         calculate_unigram_perplexity(language_model_dir, text)
 
         language_model_dir = "../../Model/label1.2gram.lm"
-        with open("../../SplitData/ImamKhomeini/test/label1.txt") as f1:
+        with open("../../SplitData/ImamKhomeini/test/shorten.txt") as f1:
             text = f1.read()
         print("Perplexity of bigram - test data- label1")
         calculate_bigram_perplexity(language_model_dir, text)
 
         language_model_dir = "../../Model/label1.3gram.lm"
-        with open("../../SplitData/ImamKhomeini/test/label1.txt") as f1:
+        with open("../../SplitData/ImamKhomeini/test/shorten.txt") as f1:
             text = f1.read()
         print("Perplexity of trigram - test data- label1")
         calculate_trigram_perplexity(language_model_dir, text)
-
-        print("***********************************************\n")
+        
+        print("\n")
+        print("***********LABEL2 - TEST*************\n")
 
         language_model_dir = "../../Model/label2.1gram.lm"
-        with open("../../SplitData/MohammadRezaPahlavi/test/label2.txt") as f1:
+        with open("../../SplitData/MohammadRezaPahlavi/test/shorten.txt") as f1:
             text = f1.read()
         print("Perplexity of unigram - test data- label2")
         calculate_unigram_perplexity(language_model_dir, text)
 
         language_model_dir = "../../Model/label2.2gram.lm"
-        with open("../../SplitData/MohammadRezaPahlavi/test/label2.txt") as f1:
+        with open("../../SplitData/MohammadRezaPahlavi/test/shorten.txt") as f1:
             text = f1.read()
         print("Perplexity of bigram - test data- label2")
         calculate_bigram_perplexity(language_model_dir, text)
 
         language_model_dir = "../../Model/label2.3gram.lm"
-        with open("../../SplitData/MohammadRezaPahlavi/test/label2.txt") as f1:
+        with open("../../SplitData/MohammadRezaPahlavi/test/shorten.txt") as f1:
             text = f1.read()
         print("Perplexity of trigram - test data- label2")
         calculate_trigram_perplexity(language_model_dir, text)
