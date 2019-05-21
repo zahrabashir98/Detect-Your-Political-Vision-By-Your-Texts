@@ -1,0 +1,29 @@
+# Perplexity
+
+
+At the beginning if you run the following file you will see these sentences on terminal:
+#### path : Perplexity/src/main.py
+`python3 main.py`
+
+> What is your language model type?
+> 1)unigram
+> 2)bigram
+> 3)trigram
+> 4)test for my own data automatically
+
+
+#### You will choose one of them and continue
+* if you choose 4 no need to do anything ... just watch the result :)
+* if you choose one of 1 to 3 the system will ask you the followings:
+
+> Enter your Language model URL: --> 
+> Enter your input text URL -->
+
+Notice that these paths are according to the relative path of the folder :
+##### e.g :
+##### your state: Perplexity/src
+##### example : ../../Model/label1.1gram.lm
+##### example: ../../SplitData/ImamKhomeini/test/label1.txt
+
+And finally you will see the results in the terminal :)
+
