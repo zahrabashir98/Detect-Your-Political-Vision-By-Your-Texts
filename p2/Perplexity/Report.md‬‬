@@ -1,0 +1,31 @@
+# Report
+
+|  | 1gram |
+|--|--|
+|label1_train  | 2203.60 |
+|label2_train| 3169.87 |
+|label1_test|1972.29|
+| label2_test | 2075.08 |
+- 
+
+|  | 2gram |
+|--|--|
+|label1_train  | 1187.24 |
+|label2_train| 2284.98 |
+|label1_test|1512.50|
+| label2_test | 1737.38 |
+- 
+|  | 3gram |
+|--|--|
+|label1_train  | 1071.25 |
+|label2_train| 1837.91 |
+|label1_test|1253.49|
+| label2_test | 1448.35 |
+
+#### You can see more details on report.pdf
+As you know perplexity has reverse relation with Probability
+And If **Perplexity** is less the **Probability** is higher and So that model is a better model
+As you can see in these results perplexity relations are like we said in theory:
+`PP(1gram) > PP(2gram) > PP(3gram)`
+About **train** and **test** my results were some how near and in theory  I guess the train PP must be less than the test because we have made our model on train. Here I guess my differences are because of different number of UNKs in input and If I normalize it I'll get a better result for sure.
+
