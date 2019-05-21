@@ -1,6 +1,6 @@
 import nltk
-nltk.download('punkt')
-nltk.download('wordnet')
+# nltk.download('punkt')
+# nltk.download('wordnet')
   
 import re
 import inflect
@@ -29,7 +29,7 @@ def tokenize(string):
 #     return new_words
     
 
-punc = ['.','؟',':','؛','،','»']
+punc = ['.','؟',':','؛','،','»',"؟"]
 def remove_punctuation(words):
     new_words = []
     for word in words:
@@ -114,6 +114,23 @@ if __name__ == '__main__':
                 for item in lists:
                     filehandle.write('%s ' % item)
         filehandle.close()
+        with open("../ImamKhomeini/label1.txt") as filehandle: 
+            d = filehandle.read()
+            d = d.replace(".","")
+            d = d.replace(",","")
+            d = d.replace("?","")
+            d = d.replace("؛","")
+            d = d.replace(":","")
+            d = d.replace("،","")
+            d = d.replace("؟","")
+            d = d.replace("عزیز","UNK")
+           
+        filehandle.close()
+
+        with open("../ImamKhomeini/label1.txt", "w") as filehandle: 
+            filehandle.write(d)
+
+        filehandle.close()
 
         with open("../ImamKhomeini/extra_info/stem1.txt", "w") as f1:
             f1.write(str(stem1))
@@ -135,6 +152,23 @@ if __name__ == '__main__':
             for lists in ShahList: 
                 for item in lists:
                     filehandle.write('%s ' % item)
+        filehandle.close()
+        with open("../MohammadRezaPahlavi/label2.txt") as filehandle: 
+            d = filehandle.read()
+            d = d.replace(".","")
+            d = d.replace(",","")
+            d = d.replace("?","")
+            d = d.replace("؛","")
+            d = d.replace(":","")
+            d = d.replace("،","")
+            d = d.replace("؟","")
+            d = d.replace("عزیز","UNK")
+
+        filehandle.close()
+
+        with open("../MohammadRezaPahlavi/label2.txt", "w") as filehandle: 
+            filehandle.write(d)
+
         filehandle.close()
 
         with open("../MohammadRezaPahlavi/extra_info/stem2.txt", "w") as f2:
@@ -182,3 +216,37 @@ if __name__ == '__main__':
         with open("../MohammadRezaPahlavi/lebel2_begin_end.txt", "w") as f2 :
             f2.write((' <\s> <s> '.join(tokenizer.tokenize(data))).replace("\n", ""))
         f2.close()
+
+        ShahList = []
+        with open("../ImamKhomeini/lebel1_begin_end.txt") as f1 :
+            d= f1.read()
+            d = d.replace(".","")
+            d = d.replace(",","")
+            d = d.replace("?","")
+            d = d.replace("؛","")
+            d = d.replace(":","")
+            d = d.replace("،","")
+            d = d.replace("؟","")
+            d = d.replace("عزیز","UNK")
+
+        with open("../ImamKhomeini/lebel1_begin_end.txt", 'w') as filehandle:  
+
+            filehandle.write(d)
+        filehandle.close()
+
+        with open("../MohammadRezaPahlavi/lebel2_begin_end.txt") as f1 :
+            d= f1.read()
+            d = d.replace(".","")
+            d = d.replace(",","")
+            d = d.replace("?","")
+            d = d.replace("؛","")
+            d = d.replace(":","")
+            d = d.replace("،","")
+            d = d.replace("؟","")
+            d = d.replace("عزیز","UNK")
+           
+ 
+        with open("../MohammadRezaPahlavi/lebel2_begin_end.txt", 'w') as filehandle:  
+
+            filehandle.write(d)
+        filehandle.close()

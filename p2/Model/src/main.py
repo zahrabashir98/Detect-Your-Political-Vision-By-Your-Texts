@@ -6,13 +6,16 @@ bigram_label2_frequencies = {}
 trigram_label1_frequencies = {}
 trigram_label2_frequencies = {}
 
-def unigram_calculate_frequences(t1,t2,v1,v2):
-
+def unigram_calculate_frequences(t1,t2,v1,v2, flag):
+    if flag == "1":
+        data_url = "../../SplitData/ImamKhomeini/train/label1.txt"
+    else:
+        data_url = ""
     # Label 1
-    with open("../../ProcessedData/ImamKhomeini/in.txt") as d:
+    with open("../../SplitData/ImamKhomeini/train/label1.txt") as d:
         content = d.read()
         all_words_list = content.split(' ')
-        print(len(all_words_list))
+        # print(len(all_words_list))
 
         for data in all_words_list:
             if data not in unigram_label1_frequencies:
@@ -23,11 +26,12 @@ def unigram_calculate_frequences(t1,t2,v1,v2):
             elif data in unigram_label1_frequencies:
                 unigram_label1_frequencies[data] += 1
                 t1 += 1
+    # print(unigram_label1_frequencies)
     # Label 2
-    with open("../../ProcessedData/MohammadRezaPahlavi/label2.txt") as d:
+    with open("../../SplitData/MohammadRezaPahlavi/train/label2.txt") as d:
         content = d.read()
         all_words_list = content.split(' ')
-        print(len(all_words_list))
+        # print(len(all_words_list))
 
         for data in all_words_list:
             if data not in unigram_label2_frequencies:
@@ -40,8 +44,8 @@ def unigram_calculate_frequences(t1,t2,v1,v2):
                 t2 += 1
     return t1,t2,v1,v2
 
-def unigram():
-    t1,t2,v1,v2 = unigram_calculate_frequences(unigram_label_1_tokens, unigram_label_2_tokens, unigram_label_1_vocab, unigram_label_2_vocab)
+def unigram(flag):
+    t1,t2,v1,v2 = unigram_calculate_frequences(unigram_label_1_tokens, unigram_label_2_tokens, unigram_label_1_vocab, unigram_label_2_vocab, flag)
 
     with open("../label1.1gram.lm", "w") as f1:
         for word in unigram_label1_frequencies:
@@ -51,7 +55,6 @@ def unigram():
             f1.write("%s|%s\n"%(word,p_x))
 
     f1.close()
-    file1.close()
 
     with open("../label2.1gram.lm", "w") as f2:
         for word in unigram_label2_frequencies:
@@ -66,7 +69,7 @@ def unigram():
 
 def bigram( v1, v2):
 
-    with open("../../ProcessedData/ImamKhomeini/inpp.txt") as d:
+    with open("../../SplitData/ImamKhomeini/train/label1.txt") as d:
         content = d.read()
         all_words_list = content.split(' ')
 
@@ -90,10 +93,10 @@ def bigram( v1, v2):
             elif pair_string in bigram_label1_frequencies:
                 bigram_label1_frequencies[pair_string] += 1
                 pair_string = ""
-    print(bigram_label1_frequencies)
+    # print(bigram_label1_frequencies)
 
 
-    with open("../../ProcessedData/MohammadRezaPahlavi/lebel2_begin_end.txt") as d:
+    with open("../../SplitData/MohammadRezaPahlavi/train/label2_begin_end.txt") as d:
         content = d.read()
         all_words_list = content.split(' ')
 
@@ -140,7 +143,7 @@ def bigram( v1, v2):
 
 
 def trigram( v1, v2):
-    with open("../../ProcessedData/ImamKhomeini/inpp.txt") as d:
+    with open("../../SplitData/ImamKhomeini/train/label1.txt") as d:
         content = d.read()
         all_words_list = content.split(' ')
 
@@ -160,7 +163,7 @@ def trigram( v1, v2):
                 triple_string = ""
     
     
-    with open("../../ProcessedData/MohammadRezaPahlavi/lebel2_begin_end.txt") as d:
+    with open("../../SplitData/MohammadRezaPahlavi/train/label2_begin_end.txt") as d:
         content = d.read()
         all_words_list = content.split(' ')
 
@@ -202,8 +205,9 @@ if __name__ == "__main__":
     unigram_label_2_tokens = 0
     unigram_label_1_vocab = 0
     unigram_label_2_vocab = 0
-
-    v1, v2 = unigram()
-    bigram(v1, v2)
-    trigram(v1, v2)
-    # handle if data was UNK
+    typpe = input("1)Generate my own data ngrams\n2)Generate ouput for test files\n")
+    if tyype == "1":
+        v1, v2 = unigram(1)
+        bigram(v1, v2,1)
+        trigram(v1, v2,1)
+    
