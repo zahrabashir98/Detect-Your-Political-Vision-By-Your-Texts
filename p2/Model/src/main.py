@@ -79,7 +79,7 @@ def unigram(info):
 
 def bigram( v1, v2, info):
     if info == "":
-        data_url = "../../SplitData/ImamKhomeini/train/label1.txt"
+        data_url = "../../SplitData/ImamKhomeini/train/label1_begin_end.txt"
         
     elif info != "":
         data_url = info
@@ -162,7 +162,7 @@ def bigram( v1, v2, info):
 
 def trigram( v1, v2, info):
     if info == "":
-        data_url = "../../SplitData/ImamKhomeini/train/label1.txt"
+        data_url = "../../SplitData/ImamKhomeini/train/label1_begin_end.txt"
     elif info != "":
         data_url = info
     with open(data_url) as d:

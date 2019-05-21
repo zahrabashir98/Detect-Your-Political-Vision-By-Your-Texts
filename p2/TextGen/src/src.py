@@ -145,36 +145,47 @@ def get_random_word_unigram2(p):
              
 def get_random_word_bigram1(p):
     sum = 0
-    for key, value in bigram_dict_1.items():          
+    for key, value in bigram_dict_1.items():  
+        # print(value)
+        if value != "":
+            value = 0.0001         
         sum += float(value)
         if p <= sum:
+            # print(key)
             return key
 
 
 def get_random_word_bigram2(p):
     sum = 0
     for key, value in bigram_dict_2.items():   
-        print(value)
+        # print(value)
         if value != "":
             value = 0.0001      
-        sum += Decimal(value)
+        sum += float(value)
         if p <= sum:
+            # print(key)
             return key
 
 
 def get_random_word_trigram1(p):
     sum = 0
     for key, value in trigram_dict_1.items():          
+        if value != "":
+            value = 0.0001      
         sum += float(value)
         if p <= sum:
+            # print(key)
             return key
 
 
 def get_random_word_trigram2(p):
     sum = 0
     for key, value in trigram_dict_1.items():          
+        if value != "":
+            value = 0.0001      
         sum += float(value)
         if p <= sum:
+            # print(key)
             return key
 #################################################
 
@@ -220,7 +231,7 @@ if __name__ == '__main__':
 
         with open("../‫‪label2.1gram.gen‬‬","w") as f2:
             for i in range(n2):
-                print("BARE+%s om"%i)
+                # print("BARE+%s om"%i)
                 string = ""
                 for j in range(num[i]):
                     new_word =  get_random_word_unigram2(random.random())
@@ -247,9 +258,11 @@ if __name__ == '__main__':
                 string = ""
                 counter = 0
                 new_word = ["",""]
-                while(new_word[1]!= "<\s>"  ):
+                while(new_word[1]!= "<\\s>"  ):
+                    # print("avvale while")
                     if counter == 0 :
                         new_word = get_random_word_bigram1(random.random())
+                        # print(new_word)
                         if new_word[0] == "<s>":
                             string += " " + new_word[0] +" " + new_word [1]
                             counter += 1
@@ -277,7 +290,7 @@ if __name__ == '__main__':
                 string = ""
                 counter = 0
                 new_word = ["",""]
-                while(new_word[1]!= "<\s>"  ):
+                while(new_word[1]!= "<\\s>"  ):
                     if counter == 0 :
                         new_word = get_random_word_bigram2(random.random())
                         if new_word[0] == "<s>":
@@ -307,7 +320,7 @@ if __name__ == '__main__':
                 counter = 0
                 new_word = ["", "", ""]
 
-                while(new_word[2]!= "<\s>"  ):
+                while(new_word[2]!= "<\\s>"  ):
                     if counter == 0 :
                         new_word = get_random_word_trigram1(random.random())
                         if new_word[0] == "<s>":
@@ -319,7 +332,7 @@ if __name__ == '__main__':
                             string += " " + new_word[0] + new_word [1] + " " + new_word[2]
                             counter += 1
             
-                print("jomle : %s"%string)
+                print(" %s"%string)
                 f1.write(string[1:len(string)]+"\n")
 
         print("LABEL2")
@@ -336,7 +349,7 @@ if __name__ == '__main__':
                 counter = 0
                 new_word = ["", "", ""]
 
-                while(new_word[2]!= "<\s>"  ):
+                while(new_word[2]!= "<\\s>"  ):
                     if counter == 0 :
                         new_word = get_random_word_trigram2(random.random())
                         if new_word[0] == "<s>":
@@ -348,5 +361,5 @@ if __name__ == '__main__':
                             string += " " + new_word[0] + new_word [1] + " " + new_word[2]
                             counter += 1
             
-                print("jomle : %s"%string)
+                print("%s"%string)
                 f2.write(string[1:len(string)]+"\n")
