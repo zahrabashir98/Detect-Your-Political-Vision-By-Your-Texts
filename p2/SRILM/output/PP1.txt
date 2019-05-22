@@ -1,0 +1,2 @@
+file label1_test.txt: 1 sentences, 3101 words, 419 OOVs
+0 zeroprobs, logprob= -7856.963 ppl= 848.0562 ppl1= 850.1911

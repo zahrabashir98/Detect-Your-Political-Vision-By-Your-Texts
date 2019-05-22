@@ -1,0 +1,32 @@
+# SRILM
+I have put some of my results here
+You can see the full documentation f my results in `output` folder.
+
+## Language Model
+You can see the results in output folder named `lm1.lm` and `lm2.lm` for both label1 and label2.
+
+## Perplexity :
+**SRILM ouputs :**
+(Bigram results)
+test_label_1
+file label1_test.txt: 1 sentences, 3101 words, 419 OOVs
+0 zeroprobs, logprob= -7856.963 ppl= 848.0562 ppl1= 850.1911
+
+test_label_2
+file label2_test.txt: 1 sentences, 3241 words, 429 OOVs
+0 zeroprobs, logprob= -8950.253 ppl= 1519.66 ppl1= 1523.624
+
+**My outputs**
+
+test_label1:
+ ppl = 1512.50 for bigrams
+test_label2:
+ppl = ‫‪1737.38‬‬ for bigrams
+
+As you can see the results are approximately the same as SRILM's outputs.
+
+
+
+
+
+
