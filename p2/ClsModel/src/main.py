@@ -69,12 +69,14 @@ test.close()
 p_label_1 = {}
 p_label_2 = {}
 
+# notice to use upper case
 for data in test_list:
 
     if data != "":
-        print("here")
          # Imam
         if data[0] == label1[0]:
+            print(data)
+            print("C1")
             new = data[len(label1)+1:]
             sentence = new.split(" ")
             # jomle khali daram
@@ -94,6 +96,7 @@ for data in test_list:
                     p_2 *= label_2_frequencies[word]
                 else:
                     p_2 *= label_2_frequencies["UNK"]
+            
             print(p_1)
             print(p_2)
             p_label_1[sentence] = math.log(p_1)
@@ -105,18 +108,28 @@ for data in test_list:
 
         # Shah
         elif data[0] == label2[0]:
+            print("C2")
             p_1 = 1
             p_2 = 1
             new = data[len(label2)+1:]
             sentence = new.split(" ")
             # jomle khali daram
             for word in sentence:
-                p_1 *= label_1_frequencies[word]
+                if word in label_1_frequencies:
+                    p_1 *= label_1_frequencies[word]
+                else:
+                    p_1 *= label_1_frequencies["UNK"]
+                    
             for word in sentence:
-                p_2 *= label_2_frequencies[word]
-
-            p_label_1[sentence] = p_1
-            p_label_2[sentence] = p_2
+                if word in label_2_frequencies:
+                    p_2 *= label_2_frequencies[word]
+                else:
+                    p_2 *= label_2_frequencies["UNK"]
+            
+            print(p_1)
+            print(p_2)
+            p_label_1[sentence] = math.log(p_1)
+            p_label_2[sentence] = math.log(p_2)
             print(p_label_1)
             print(p_label_2)
             p_1 = 1
