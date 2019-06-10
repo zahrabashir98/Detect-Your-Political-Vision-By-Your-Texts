@@ -1,3 +1,5 @@
+import math
+
 with open("../../ClsData/train.txt") as train:
     string = train.read().split("\n")
 train.close()
@@ -68,24 +70,34 @@ p_label_1 = {}
 p_label_2 = {}
 
 for data in test_list:
-    print(data)
+
     if data != "":
         print("here")
          # Imam
         if data[0] == label1[0]:
             new = data[len(label1)+1:]
             sentence = new.split(" ")
-            print(sentence)
             # jomle khali daram
             p_1 = 1
             p_2 = 1
             for word in sentence:
-                p_1 *= label_1_frequencies[word]
-            for word in sentence:
-                p_2 *= label_2_frequencies[word]
+                print(word)
+                if word in label_1_frequencies:
+                    print("raft inja")
+                    p_1 *= label_1_frequencies[word]
+                else:
+                    print("raft dovvomi")
+                    p_1 *= label_1_frequencies["UNK"]
 
-            p_label_1[sentence] = p_1
-            p_label_2[sentence] = p_2
+            for word in sentence:
+                if word in label_2_frequencies:
+                    p_2 *= label_2_frequencies[word]
+                else:
+                    p_2 *= label_2_frequencies["UNK"]
+            print(p_1)
+            print(p_2)
+            p_label_1[sentence] = math.log(p_1)
+            p_label_2[sentence] = math.log(p_2)
             print(p_label_1)
             print(p_label_2)
             p_1 = 1
