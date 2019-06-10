@@ -51,8 +51,9 @@ print(dictionary_1)
 
 label_1_frequencies = {}
 label_2_frequencies = {}
+class_1_prob = label_1_count / (label_1_count + label_2_count)
+class_2_prob = label_2_count / (label_1_count + label_2_count)
 
-flag = True
 V = label_1_vocab + label_2_vocab
 print(V)
 
@@ -100,7 +101,8 @@ for data in test_list:
             else:
                 p_2 *= label_2_frequencies["UNK"]
         
-        print(p_1 )
+        p_1 *= class_1_prob
+        p_2 *= class_2_prob
         p_label_1[new] = math.log10(p_1)
         p_label_2[new] = math.log10(p_2)
         # print(p_label_1)

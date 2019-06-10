@@ -4,6 +4,7 @@ import fileinput
 import sys
 import random
 
+# horoofe ezafaro hazf konnn
 def calculate_total_len():
 
     with open('../../ProcessedData/ImamKhomeini/tagged_data_1.txt') as outfile1:

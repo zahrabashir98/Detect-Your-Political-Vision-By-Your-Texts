@@ -243,5 +243,3 @@ if __name__ == "__main__":
         v1, v2 = unigram("../test/in.1gram")
         bigram(v1, v2, "../test/in_beg_end.2gram")
         trigram(v1, v2, "../test/in_beg_end.2gram")
-
-
