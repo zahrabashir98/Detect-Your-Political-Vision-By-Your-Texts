@@ -68,69 +68,41 @@ test.close()
 
 p_label_1 = {}
 p_label_2 = {}
+raw_sentences = [] 
 
-# notice to use upper case
+# notice to use upper case / len of both data labels are the same
 for data in test_list:
 
     if data != "":
-         # Imam
-        if data[0] == label1[0]:
-            print(data)
-            print("C1")
-            new = data[len(label1)+1:]
-            sentence = new.split(" ")
-            # jomle khali daram
-            p_1 = 1
-            p_2 = 1
-            for word in sentence:
-                print(word)
-                if word in label_1_frequencies:
-                    print("raft inja")
-                    p_1 *= label_1_frequencies[word]
-                else:
-                    print("raft dovvomi")
-                    p_1 *= label_1_frequencies["UNK"]
 
-            for word in sentence:
-                if word in label_2_frequencies:
-                    p_2 *= label_2_frequencies[word]
-                else:
-                    p_2 *= label_2_frequencies["UNK"]
-            
-            print(p_1)
-            print(p_2)
-            p_label_1[sentence] = math.log(p_1)
-            p_label_2[sentence] = math.log(p_2)
-            print(p_label_1)
-            print(p_label_2)
-            p_1 = 1
-            p_2 = 1
+        correct_label = data[0:len(label1)]
+        new = data[len(label1)+1:]
+        raw_sentences.append(new)
+        sentence = new.split(" ")
 
-        # Shah
-        elif data[0] == label2[0]:
-            print("C2")
-            p_1 = 1
-            p_2 = 1
-            new = data[len(label2)+1:]
-            sentence = new.split(" ")
-            # jomle khali daram
-            for word in sentence:
-                if word in label_1_frequencies:
-                    p_1 *= label_1_frequencies[word]
-                else:
-                    p_1 *= label_1_frequencies["UNK"]
-                    
-            for word in sentence:
-                if word in label_2_frequencies:
-                    p_2 *= label_2_frequencies[word]
-                else:
-                    p_2 *= label_2_frequencies["UNK"]
-            
-            print(p_1)
-            print(p_2)
-            p_label_1[sentence] = math.log(p_1)
-            p_label_2[sentence] = math.log(p_2)
-            print(p_label_1)
-            print(p_label_2)
-            p_1 = 1
-            p_2 = 1
+        p_1 = 1
+        p_2 = 1
+        for word in sentence:
+            if word in label_1_frequencies:
+                p_1 *= label_1_frequencies[word]
+            elif word not in label_1_frequencies:
+                p_1 *= label_1_frequencies["UNK"]
+
+        for word in sentence:
+            if word in label_2_frequencies:
+                p_2 *= label_2_frequencies[word]
+            else:
+                p_2 *= label_2_frequencies["UNK"]
+        
+
+        p_label_1[new] = math.log(p_1)
+        p_label_2[new] = math.log(p_2)
+        # print(p_label_1)
+        # print(p_label_2)
+        p_1 = 1
+        p_2 = 1
+
+
+for s in raw_sentences:
+    print("Imam %s Shah %s"%(p_label_1[s],p_label_2[s]))
+# print("Estomated value:",max())
