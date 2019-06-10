@@ -58,7 +58,13 @@ array.pop()
 print(len(array))
 
 # array now has each line of concat data
-# for test_ind in test_index:
+with open("train.txt", "w")as train_file:
+    for train_ind in train_index:
+        train_file.write(array[train_ind]+"\n")
+
+with open("test.txt", "w")as test_file:
+    for test_ind in test_index:
+        test_file.write(array[test_ind]+"\n")
 
 
 
