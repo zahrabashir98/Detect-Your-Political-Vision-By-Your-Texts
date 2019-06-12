@@ -192,7 +192,8 @@ label2_precision = (label2_fields['tp']) / (label2_fields['tp'] + label2_fields[
 label2_recall = (label2_fields['tp']) / (label2_fields['tp'] + label2_fields['fn'])
 label2_f1 = 2* (label2_precision * label2_recall) / (label2_precision + label2_recall)
 label2_accuracy = (label2_fields['tp'] + label2_fields['tn']) / (label2_fields['tp'] + label2_fields['tn'] + label2_fields['fp'] + label2_fields['fn'])
-
+print(p_label_1)
+print(p_label_2)
 
 with open("../%s.report.txt‬‬"%write_name, "w") as file1:
     file1.write("%s\n%s\n%s\n%s" %(total_recall, total_precision, total_f1, total_accuracy))
