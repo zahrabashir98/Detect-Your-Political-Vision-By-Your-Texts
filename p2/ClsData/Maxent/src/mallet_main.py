@@ -28,7 +28,8 @@ def create_input_fromat(words, label):
         if len(words) <= 2:
             break
         string  = ""
-        string = "%s%s" %(words[i],words[i+1])
+        # seperating bigrams by _
+        string = "%s_%s" %(words[i],words[i+1])
         
         if string in bigram_dictionary:
             bigram_dictionary[string] += 1
@@ -36,7 +37,6 @@ def create_input_fromat(words, label):
             bigram_dictionary[string] = 1
 
         if i == len(words) -2 :
-            print("here")
             break
 
     string_fromat = label 
@@ -62,18 +62,18 @@ def create_input_fromat(words, label):
         string_fromat += " " + "has_arabic:1"
     else:
         string_fromat += " " + "has_arabic:0"
-    print(string_fromat)
+    # print(string_fromat)
     return string_fromat
 
 
 label1 = "Imam"
 label2 = "Shah"
+
+# train
 with open("../../train.txt") as file1:
     string = file1.read().split("\n")
 file1.close()
 string.pop()
-count = 0
-print(len(string))
 
 with open("../‫‪input.train.txt‬‬", "w") as filehandle:
     for data in string :
@@ -81,8 +81,18 @@ with open("../‫‪input.train.txt‬‬", "w") as filehandle:
         label = data[0:len(label1)]
         string_fromat = create_input_fromat(words, label)
         filehandle.write(string_fromat+"\n")
-        # print(count)
-        count +=1
 filehandle.close
-    
-# create_input_fromat(["salam","man", "zahra","hastam"],"LABEL")
+
+# test
+with open("../../test.txt") as file2:
+    string = file2.read().split("\n")
+file2.close()
+string.pop()
+
+with open("../‫‪input.test.txt‬‬", "w") as filehandle:
+    for data in string :
+        words = data[len(label1)+1:].split(" ")
+        label = data[0:len(label1)]
+        string_fromat = create_input_fromat(words, label)
+        filehandle.write(string_fromat+"\n")
+filehandle.close
