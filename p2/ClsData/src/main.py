@@ -18,6 +18,11 @@ def calculate_total_len():
 #     sys.stdout.write('Imam {l}'.format(l=line))
 with open('../../ProcessedData/ImamKhomeini/tagged_data_1.txt') as outfile1:
     string1 = outfile1.read()
+    re1 = string1.replace(".","")
+    re2 = re1.replace("،","")
+    re3 = re2.replace("؟","")
+    re4 = re3.replace("/","")
+    re5 = re4.replace("!","")
 
 
 # only run for the first time
@@ -25,9 +30,14 @@ with open('../../ProcessedData/ImamKhomeini/tagged_data_1.txt') as outfile1:
 #     sys.stdout.write('Shah {l}'.format(l=line))
 with open('../../ProcessedData/MohammadRezaPahlavi/tagged_data_2.txt') as outfile2:
     string2 = outfile2.read()
+    re10 = string2.replace(".","")
+    re11 = re10.replace("،","")
+    re12 = re11.replace("؟","")
+    re13 = re12.replace("/","")
+    re14 = re13.replace("!","")
 
 with open("../merged_file.txt", "w") as file1:
-    file1.write(string1+"\n"+string2)
+    file1.write(re5+"\n"+re14)
 
 total_len = calculate_total_len()
 train_len  = int(0.8 * total_len)
