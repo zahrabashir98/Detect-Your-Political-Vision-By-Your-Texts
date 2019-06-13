@@ -29,7 +29,7 @@ def create_input_fromat(words, label):
             break
         string  = ""
         # seperating bigrams by _
-        string = "%s_%s" %(words[i],words[i+1])
+        string = "%s%s" %(words[i],words[i+1])
         
         if string in bigram_dictionary:
             bigram_dictionary[string] += 1
@@ -42,12 +42,12 @@ def create_input_fromat(words, label):
     string_fromat = label 
     for data in mini_dictionary:
         s = ""
-        s = "f_%s:%s" %(data, mini_dictionary[data])
+        s = "%s:%s" %(data, mini_dictionary[data])
         string_fromat += " " + s
 
     for data in bigram_dictionary:
         s = ""
-        s = "f_%s:%s" %(data, bigram_dictionary[data])
+        s = "%s:%s" %(data, bigram_dictionary[data])
         string_fromat += " " + s
 
     string_fromat += " " + "length:%s"%length
