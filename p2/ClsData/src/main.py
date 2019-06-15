@@ -36,7 +36,7 @@ with open('../../ProcessedData/MohammadRezaPahlavi/tagged_data_2.txt') as outfil
     re13 = re12.replace("/","")
     re14 = re13.replace("!","")
 
-with open("../merged_file.txt", "w") as file1:
+with open("../extra/merged_file.txt", "w") as file1:
     file1.write(re5+"\n"+re14)
 
 total_len = calculate_total_len()
@@ -54,7 +54,7 @@ for index in test_index:
 train_index = total_index
 
 array = []
-with open('../merged_file.txt') as fille:
+with open('../extra/merged_file.txt') as fille:
     a = fille.read()
     b = a.split("\n")
     for data in b :

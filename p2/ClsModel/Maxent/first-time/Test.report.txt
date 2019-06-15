@@ -1,0 +1,27 @@
+
+-------------------- Trial 0  --------------------
+
+Trial 0 Training MaxEntTrainer,gaussianPriorVariance=1.0 with 456 instances
+Trial 0 Training MaxEntTrainer,gaussianPriorVariance=1.0 finished
+Trial 0 Trainer MaxEntTrainer,gaussianPriorVariance=1.0 Test Data Confusion Matrix
+Confusion Matrix, row=true, column=predicted  accuracy=0.9565217391304348
+   label   0   1  |total
+  0 امام  40   2   .  |42
+  1  شاه   2  70   .  |72
+
+Trial 0 Trainer MaxEntTrainer,gaussianPriorVariance=1.0 test data precision(امام) = 0.9302325581395349
+Trial 0 Trainer MaxEntTrainer,gaussianPriorVariance=1.0 test data precision(شاه) = 0.9722222222222222
+Trial 0 Trainer MaxEntTrainer,gaussianPriorVariance=1.0 test data recall(امام) = 0.9523809523809523
+Trial 0 Trainer MaxEntTrainer,gaussianPriorVariance=1.0 test data recall(شاه) = 0.9722222222222222
+Trial 0 Trainer MaxEntTrainer,gaussianPriorVariance=1.0 test data F1(امام) = 0.9411764705882352
+Trial 0 Trainer MaxEntTrainer,gaussianPriorVariance=1.0 test data F1(شاه) = 0.9722222222222222
+Trial 0 Trainer MaxEntTrainer,gaussianPriorVariance=1.0 test data accuracy = 0.9565217391304348
+
+MaxEntTrainer,gaussianPriorVariance=1.0
+Summary. test accuracy mean = 0.9565217391304348 stddev = 0.0 stderr = 0.0
+Summary. test precision(امام) mean = 0.9302325581395349 stddev = 0.0 stderr = 0.0
+Summary. test precision(شاه) mean = 0.9722222222222222 stddev = 0.0 stderr = 0.0
+Summary. test recall(امام) mean = 0.9523809523809523 stddev = 0.0 stderr = 0.0
+Summary. test recall(شاه) mean = 0.9722222222222222 stddev = 0.0 stderr = 0.0
+Summary. test f1(امام) mean = 0.9411764705882352 stddev = 0.0 stderr = 0.0
+Summary. test f1(شاه) mean = 0.9722222222222222 stddev = 0.0 stderr = 0.0

@@ -23,6 +23,27 @@ def create_input_fromat(words, label):
         elif word not in mini_dictionary:
             mini_dictionary[word] = 1
 
+    string_fromat = label 
+    for data in mini_dictionary:
+        s = ""
+        s = "%s:%s" %(data, mini_dictionary[data])
+        string_fromat += " " + s
+
+
+    string_fromat += " " + "length:%s"%length
+    for word in words:
+        if word in arabic_dictionary:
+            arabic = True
+            break
+        elif word not in arabic_dictionary:
+            pass
+
+    if arabic == True:
+        string_fromat += " " + "has_arabic:1"
+    else:
+        string_fromat += " " + "has_arabic:0"
+    
+    string_fromat_2 = string_fromat
     # 2gram
     for i in range(len(words)):
         if len(words) <= 2:
@@ -39,31 +60,14 @@ def create_input_fromat(words, label):
         if i == len(words) -2 :
             break
 
-    string_fromat = label 
-    for data in mini_dictionary:
-        s = ""
-        s = "%s:%s" %(data, mini_dictionary[data])
-        string_fromat += " " + s
-
     for data in bigram_dictionary:
         s = ""
         s = "%s:%s" %(data, bigram_dictionary[data])
-        string_fromat += " " + s
+        string_fromat_2 += " " + s
 
-    string_fromat += " " + "length:%s"%length
-    for word in words:
-        if word in arabic_dictionary:
-            arabic = True
-            break
-        elif word not in arabic_dictionary:
-            pass
-
-    if arabic == True:
-        string_fromat += " " + "has_arabic:1"
-    else:
-        string_fromat += " " + "has_arabic:0"
+    
     # print(string_fromat)
-    return string_fromat
+    return string_fromat_2
 
 
 label1 = "Imam"
@@ -74,13 +78,15 @@ with open("../../train.txt") as file1:
     string = file1.read().split("\n")
 file1.close()
 string.pop()
-
-with open("../‫‪input.train.txt‬‬", "w") as filehandle:
+string2 = ""
+with open("../‫‪input_2.train.txt‬‬", "w") as filehandle:
     for data in string :
         words = data[len(label1)+1:].split(" ")
         label = data[0:len(label1)]
         string_fromat = create_input_fromat(words, label)
-        filehandle.write(string_fromat+"\n")
+        
+        filehandle.write(str(string_fromat)+"\n")
+
 filehandle.close
 
 # test
@@ -89,7 +95,7 @@ with open("../../test.txt") as file2:
 file2.close()
 string.pop()
 
-with open("../‫‪input.test.txt‬‬", "w") as filehandle:
+with open("../‫‪input_2.test.txt‬‬", "w") as filehandle:
     for data in string :
         words = data[len(label1)+1:].split(" ")
         label = data[0:len(label1)]
