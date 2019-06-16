@@ -1,6 +1,10 @@
-# ClsModel
+
+# ClsModel/Naive Bayes
 
 ## Naive Bayes
+
+### Bag Of Words Effect
+
 One of the wrong and bad defaults in **Naive Bayes** is that we assume that words are independent and their order doesn't matter.
 So we treat them as a "Bag of Words" and this is one of the problems
 I reached these results about the `TestCase`:
@@ -33,4 +37,29 @@ The mistake is in `d5 e4 e2 a1 a3 d2` data that it should be c1 but estimated as
 C1 : p(d5)  * p(e4) * p(e2)* p(a1) * p(a2) *p(a3)  * p(d2) * p(c1)
 
 C2 :p(d5)  * p(e4) * p(e2)* p(a1) * p(a2) *p(a3)  * p(d2)* p(c2)
+
+
+### Example of one sentence estimated wrong in naive bayes:
+
+> امام اﺻﻼﺣﺎت ارﺿﯽ آﻗﺎ ﺑﻪ اﯾﻨﺠﺎ ﻣﻨﺘﻬﯽ ﺷﺪ ﮐﻪ ﯾﮏ ﺑﺎزاري درﺳﺖ ﮐﺮد ﺑﺮاي
+> آﻣﺮﯾﮑﺎ ﮐﻪ آﻣﺮﯾﮑﺎ ﭼﯿﺰﻫﺎﯾﯽ ﮐﻪ ﺑﺎﯾﺪ ﺑﺮﯾﺰد دور ﺑﻪ اﯾﺮان ﺑﻔﺮوﺷﺪ ﻧﻔﺖ ﻣﺎ را
+> ﮐﻪ دارﻧﺪ اﯾﻦ ﻃﻮر ﻣﯽ ﺑﺮﻧﺪ ﺑﻌﺪ از ﺳﯽ ﺳﺎل دﯾﮕﺮ )ﺑﻪ ﻗﻮل ﺷﺎه( ﺑﻌﺪ از ﺳﯽ ﺳﺎل
+> دﯾﮕﺮ ﺗﻤﺎم ﻣﯽ ﺷﻮد ﻧﻔﺖ ﻧﻪ اﯾﻨﮑﻪ ﻧﻔﺖ ﺗﻤﺎم ﻣﯽ ﺷﻮد ﻧﺨﯿﺮ ﺗﻤﺎم دارﻧﺪ ﻣﯽ ﮐﻨﻨﺪ
+> دارﻧﺪ ﺑﺎ اﯾﻦ ﻟﻮﻟﻪ ﻫﺎي ﺑﺰرگ ﮐﻪ ﺑﻪ اﻧﺪازه اﯾﻦ اﻃﺎق ﺷﺎﯾﺪ ﺑﻌﻀﯽ ﻫﺎﯾﺸﺎن
+> ﺑﺰرﮔﯽ اش ﺑﺎﺷﺪ ﺑﻪ اﻧﺪازه ﻗﺎﻣﺖ اﻧﺴﺎن زﯾﺎدﺗﺮ ﺑﻠﻨﺪﯾﺶ دورش ﻫﺴﺖ ﻫﯿﮑﻠﺶ ﻫﺴﺖ
+> دارﻧﺪ ﺑﺎ زور ﻧﻔﺖ ﻫﺎي ﻣﺎ را در ﻣﯽ آورﻧﺪ و ﻣﯽ ﻓﺮﺳﺘﻨﺪ ﻃﺮف اﻣﺮﯾﮑﺎ ﻋﻮﺿﺶ ﻫﻢ
+> ﮐﻪ ﺑﺎﯾﺪ ﺑﻪ ﻣﺎ ﺑﺪﻫﻨﺪ ﻋﻮﺿﺶ ﻫﻢ اﺳﻠﺤﻪ اي را ﮐﻪ ﻣﯽ ﺧﻮاﻫﺪ اﻣﺮﯾﮑﺎ ﺑﯿﺎﯾﺪ در
+> اﯾﺮان ﭘﺎﯾﮕﺎه داﺷﺘﻪ ﺑﺎﺷﺪ در ﻣﻘﺎﺑﻞ ﺷﻮروي ﺑﺎﯾﺪ ﯾﮏ ﭼﯿﺰي ﻫﻢ ﺑﻪ اﯾﺮان ﺑﺪﻫﺪ
+> اﮔﺮ ﭼﻨﺎﻧﭽﻪ اﺟﺎزه اش  ﻧﺒﺎﯾﺪ اﺟﺎزه ﺑﺪﻫﻨﺪ ﻟﮑﻦ ﺣﺎﻻ اﯾﻦ ﺧﯿﺎﻧﺖ را ﮐﺮدﻧﺪ و
+> ﺧﻮاﺳﺘﻨﺪ اﺟﺎزه ﺑﺪﻫﻨﺪ ﺑﺎﯾﺪ ﯾﮏ ﭼﯿﺰي ﻫﻢ ﺑﺪﻫﺪ ﺑﻪ ﻣﺎ ﮐﻪ ﺑﯿﺎﯾﺪ ﭘﺎﯾﮕﺎه درﺳﺖ
+> ﺑﮑﻨﺪ ﻧﻔﺖ ﻣﺎ را ﻣﯽ ﮔﯿﺮد ﭘﺎﯾﮕﺎه درﺳﺖ ﻣﯽ ﮐﻨﺪ ﺑﺮاي ﺧﻮدش ﻋﻮض ﺑﻪ ﻣﺎ ﻣﯽ دﻫﺪ
+> ﻋﻮض ﯾﻌﻨﯽ ﭘﺎﯾﮕﺎه درﺳﺖ ﮐﺮدن ﺑﺮاي آﻣﺮﯾﮑﺎ ﯾﺎ آن اﺳﻠﺤﻪ ﻫﺎي ﺑﺰرگ ﺣﺘﯽ از
+> ﻣﻤﺎﻟﮏ دﯾﮕﺮ ﻓﺮاﻧﺴﻪ ﻣﯽ ﺧﺮﻧﺪ آن ﭼﯿﺰﻫﺎي ﺑﺴﯿﺎر ﮔﺮان ﻗﯿﻤﺖ را ﮐﻪ ﺑﻪ درد ﻣﺎ
+> ﻧﻤﯽ ﺧﻮرد ﺑﻪ ﻋﻮﺿﺶ ﻧﻔﺖ را دارﻧﺪ ﻣﯽ ﺑﺮﻧﺪ ﻃﯿﺎره ﻫﺎي 350 ﻣﯿﻠﯿﻮن دﻻري 350
+> ﻣﯿﻠﯿﻮن
+
+Here our classifier detected this as `شاه` which is actually ‍‍`امام`.
+The reason is because of Naive Bayes pays attention to `bag-of-words `and the `order` and `sequence` of words is not important to it.
+And most of the times Shah talked about financial stuffs so it learned that each of these words are more probable in `شاه‍‍` rather than `امام`.
+But we should notice that we need a model which can recognize a group of words and it should be like a sequence and not only a unigram but more than that.
 
