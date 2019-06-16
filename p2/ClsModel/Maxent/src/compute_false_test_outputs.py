@@ -1,7 +1,7 @@
-with open("../output.test.txt") as file1:
+with open("../Test.output.txt") as file1:
     output_string = file1.read().split("\n")
 
-with open("../‫‪input.test.txt‬‬") as file2:
+with open("../../../ClsData/Maxent/input.test.txt") as file2:
     input_string = file2.read().split("\n")
 
 est_classes = []
@@ -22,7 +22,7 @@ for row in input_string:
     m = row.split(" ")
     true_classes.append(m[0])
 
-with open("../wrong_estimated.txt","w") as wrong:
+with open("../wrong_predicted.txt","w") as wrong:
     for i in range(len(est_classes)):
         if i > 114:
             break
